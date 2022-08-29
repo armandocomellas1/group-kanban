@@ -1,80 +1,67 @@
-# curriculum-tools-copy-projects
+![](https://img.shields.io/badge/Microverse-blueviolet)
+# Capstone Project 2
 
-The bash script stored in this repo will help you to quickly copy [GitHub project boards](https://docs.github.com/en/github/managing-your-work-on-github/about-project-boards) with associated issues.
-It will be useful for the Microverse group projects that should be based on project board templates prepared by Microverse.
+>
+This project is a basic website that allows users to add and delete books from a group or list using JavaScript objects, storage and arrays.
+
+## Built With
+
+- HTML5.
+- CSS.
+- JavaScript
+- Visual Studio Code.
+- Git
+- GitHub
 
 
 ## Getting Started
 
-In order to successfully copy a given project board, you need to follow the below steps.
+If you want to clone this project:
+- Go to GitHub repository
+- Click on the green button that say 'Code'
+- Copy the SSH link
+- On your local machine, type the command git clone and paste the SSH link
+
 
 ### Prerequisites
+- Code editor
+- Knowledge in HTML
+- Knowledge in Javascript (ES6) (if you want to use the array methods)
+- Handle on local repository Git
 
-1. Initialize an empty repository for your group project.
+### Setup
+- Clone the repository
+- Change directory into the project folder
+- Install dependencies
+- Open project with text editor to view changes
+- Run the code using [live server](https://www.google.com/search?client=safari&rls=en&q=live+server&ie=UTF-8&oe=UTF-8)
 
-2. Manually [copy project board (only empty columns)](https://docs.github.com/en/github/managing-your-work-on-github/copying-a-project-board) from a specific template to your own repo. **IMPORTANT NOTE: do not copy cards manually, this tool will do it for you in a few seconds.**
-    - [[TEMPLATE] JavaScript Group Capstone](https://github.com/microverseinc/curriculum-javascript/projects/1)
-    - [[TEMPLATE] React Group Project](https://github.com/microverseinc/curriculum-react-redux/projects/1)
-    - [[TEMPLATE] Ruby Group Capstone Project](https://github.com/microverseinc/curriculum-ruby/projects/1)
-
-3. Install [jq](https://stedolan.github.io/jq/download/).
-    - OS X
-    ``` bash
-        brew install jq
-    ```
-     - Linux
-    ``` bash
-        sudo apt-get install jq
-    ```
-     - Windows - **run your windows CMD as an administrator**
-          ``` bash
-              choco install jq
-          ```
-          - if you do not have chocolately installed follow [this guide](https://www.liquidweb.com/kb/how-to-install-chocolatey-on-windows/)
-
-4. Generate [personal access token for GitHub API](https://github.com/settings/tokens/new?scopes=repo).
+### Install
+- Feel free to clone the repository at this URL: https://github.com/robinbenitezmora/Awesome_Books
 
 ### Usage
+- Make changes to javascript and html files then submit pull requests
 
-1. Clone this repository.
-2. Open terminal.
-3. Navigate to the cloned repo dir.
-     ``` bash
-         cd curriculum-tools-copy-projects
-     ```
-4. Run script with correct input parameters
-     ``` bash
-         sh copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> <SOURCE_GITHUB_USERNAME> <SOURCE_REPO_NAME> <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
+### Run tests
+- You can use a live server to run the tests
 
-     🐛 _In case of errors, try to use:_
-     ``` bash
-         bash copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> <SOURCE_GITHUB_USERNAME> <SOURCE_REPO_NAME> <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
-
-    - for example, in case of the JavaScript Group Capstone, you should use:
-
-     ``` bash
-         sh copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> microverseinc curriculum-javascript <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
-5. Verify that the template project board and your board look exactly the same.
-
-### Troubleshooting
-
-When trying to use the .sh file to copy the kanban board to your repository, youmight see unexpected errors appeared such as this one:
-
-```bash
-jq: error (at :4): Cannot index string with string "id"
-```
-
-To fix it locally you need to createa new personal access token with permission to access and manage your repositories.
+### Deployment
+- Run the project in your local browser to view the index.html
 
 
-## 🤝 Contributing
+## Authors
 
-Contributions, issues, and feature requests are welcome!
+👤 **Robin Benitez Mora**
 
-Feel free to check the [issues page](../../issues/).
+- GitHub: [@robinbenitezmora](https://github.com/robinbenitezmora)
+- Twitter: [@Mecanico_Robin](https://twitter.com/mecanico_robin)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/robin-benitez-mora-manizales)
+
+👤 **Armando Comellas**
+
+- GitHub: [@armandocomellas](https://github.com/armandocomellas1)
+- Twitter: [@armando_comellas](https://twitter.com/armando_comellas)
+- LinkedIn: [@armandoComellasd](https://www.linkedin.com/in/armando-comellas-mayo-a8a8b8b6/)
 
 ## Show your support
 
@@ -82,4 +69,10 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-This script is based on the [How to copy project cards on GitHub](https://blog.termian.dev/posts/project-cards-copy-github/) by Damian Terlecki.
+-I thank Microverse for its documentation.
+
+-Thanks to my coding partner Armando Comellas for helping with your good support in this project.
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.
