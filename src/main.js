@@ -19,7 +19,7 @@ document.getElementsByClassName('shows')[0].addEventListener('click', () => {
       createDivImg.style.backgroundImage = `url(${imageBestShows})`;
       getParentNode.appendChild(createDivImg);
       const createDiv = document.createElement('div');
-      createDiv.classList.add('line');
+      createDiv.classList.add('title');
     }
   });
 });
