@@ -1,80 +1,72 @@
-# curriculum-tools-copy-projects
+![](https://img.shields.io/badge/Microverse-blueviolet)
+# Conference page - HTML/CSS & JavaScript project
 
-The bash script stored in this repo will help you to quickly copy [GitHub project boards](https://docs.github.com/en/github/managing-your-work-on-github/about-project-boards) with associated issues.
-It will be useful for the Microverse group projects that should be based on project board templates prepared by Microverse.
+> Hi there! This project is based on an online website for a conference. The objectives are:
+- Use semantic HTML tags.
+- Apply best practices in HTML code.
+- Use CSS selectors correctly.
+- Use CSS box model.
+- Use Flexbox to place elements in the page.
+- Demonstrate ability to create UIs adaptable to different screen sizes using media queries.
+- Use GitHub Pages to deploy web pages.
+- Apply JavaScript best practices and language style guides in code.
+- Use JavaScript to manipulate DOM elements.
+- Use JavaScript events.
+- Use objects to store and access data.
 
+## Built With
+
+- HTML
+- CSS
+- JAVASCRIPT
+- (Used Lighthouse, Webhint, and Stylelint as linters)
+
+## Live Demo
+
+You can check a live working version of this project here: [live-demo](https://armandocomellas1.github.io/capstone-project-conference/)
+
+## Live video showing the project
+
+You can check a live working version of this project here: [live-demo](https://drive.google.com/file/d/1Y7vXFLuFu1SEfDlnbkkC3J1IbYIUPWwm/view?usp=sharing)
 
 ## Getting Started
 
-In order to successfully copy a given project board, you need to follow the below steps.
+To get the content of this project locally you need to run the following commands in your terminal.
 
 ### Prerequisites
+- IDE(code editor) like: **Vscode**, **Sublime**, etc.
+- [Git](https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/)
 
-1. Initialize an empty repository for your group project.
+### Setup
+- Clone the repository
+- Change directory into the project folder
+- Install dependencies
+- Open project with text editor to view changes
+- Run the code using [live server](https://www.google.com/search?client=safari&rls=en&q=live+server&ie=UTF-8&oe=UTF-8)
 
-2. Manually [copy project board (only empty columns)](https://docs.github.com/en/github/managing-your-work-on-github/copying-a-project-board) from a specific template to your own repo. **IMPORTANT NOTE: do not copy cards manually, this tool will do it for you in a few seconds.**
-    - [[TEMPLATE] JavaScript Group Capstone](https://github.com/microverseinc/curriculum-javascript/projects/1)
-    - [[TEMPLATE] React Group Project](https://github.com/microverseinc/curriculum-react-redux/projects/1)
-    - [[TEMPLATE] Ruby Group Capstone Project](https://github.com/microverseinc/curriculum-ruby/projects/1)
-
-3. Install [jq](https://stedolan.github.io/jq/download/).
-    - OS X
-    ``` bash
-        brew install jq
-    ```
-     - Linux
-    ``` bash
-        sudo apt-get install jq
-    ```
-     - Windows - **run your windows CMD as an administrator**
-          ``` bash
-              choco install jq
-          ```
-          - if you do not have chocolately installed follow [this guide](https://www.liquidweb.com/kb/how-to-install-chocolatey-on-windows/)
-
-4. Generate [personal access token for GitHub API](https://github.com/settings/tokens/new?scopes=repo).
+### Install
+- Feel free to clone the repository at this URL: https://github.com/robinbenitezmora/Awesome_Books
 
 ### Usage
+- Make changes to javascript and html files then submit pull requests
 
-1. Clone this repository.
-2. Open terminal.
-3. Navigate to the cloned repo dir.
-     ``` bash
-         cd curriculum-tools-copy-projects
-     ```
-4. Run script with correct input parameters
-     ``` bash
-         sh copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> <SOURCE_GITHUB_USERNAME> <SOURCE_REPO_NAME> <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
+### Run tests
+- You can use a live server to run the tests
 
-     🐛 _In case of errors, try to use:_
-     ``` bash
-         bash copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> <SOURCE_GITHUB_USERNAME> <SOURCE_REPO_NAME> <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
+### Deployment
+- Run the project in your local browser to view the index.html
 
-    - for example, in case of the JavaScript Group Capstone, you should use:
+## Authors
 
-     ``` bash
-         sh copy_github_board.sh <YOUR_GITHUB_AUTH_TOKEN> microverseinc curriculum-javascript <YOUR_GITHUB_USERNAME> <YOUR_GROUP_PROJECT_REPO_NAME>
-     ```
-5. Verify that the template project board and your board look exactly the same.
+👤 **Armando Gabriel Comellas**
 
-### Troubleshooting
-
-When trying to use the .sh file to copy the kanban board to your repository, youmight see unexpected errors appeared such as this one:
-
-```bash
-jq: error (at :4): Cannot index string with string "id"
-```
-
-To fix it locally you need to createa new personal access token with permission to access and manage your repositories.
-
+- GitHub: [@armandocomellas1](https://github.com/armandocomellas1)
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](../../issues/).
+Feel free to check the [issues page](https://armandocomellas1.github.io/capstone-project-conference/issues)
 
 ## Show your support
 
@@ -82,4 +74,10 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-This script is based on the [How to copy project cards on GitHub](https://blog.termian.dev/posts/project-cards-copy-github/) by Damian Terlecki.
+- Thanks to [Cindy Shin](https://www.behance.net/adagio07) for the amazing work she did in the [CC Global Summit 2015 Project](https://www.behance.net/gallery/29845175/CC-Global-Summit-2015), which was used as a reference and guide for this webpage.
+
+- Thanks to my learning partners for their help and support in our learning path:
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.
