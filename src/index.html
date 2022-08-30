@@ -4,23 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./index.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
-  <title>ToDoList</title>
+  <title>API</title>
 </head>
 <body>
-  <div class="container">
-    <h3>Today's To Do</h3>
-    <div class="add-task">
-      <input type="text" id="input" placeholder="Add to your list...">
-      <i class="fa fa-plus-circle" id="enter"></i>
+  <header>
+    <img src="../assets/holliwood.jpg" alt="holliwood">
+    <span class="cls">&times;</span>
+  </header>
+  <section class="popup">
+    <div class="popup__content">
+      <div class="popup__content-general">
+        <div class="popup-title">
+          <h1>Movie 1</h1>
+        </div>
+        <div class="popup-text">
+          <div class="first-line">
+            <div>Fuel: Titanium</div>
+            <div>Weight: 400</div>
+          </div>
+          <div class="second-line">
+            <div>Length: 100.000</div>
+            <div>Power: 10.000.000</div>
+          </div>
+        </div>
+      </div>
+      <div class="popup__comments">
+        <h3>Comments</h3>
+        <div class="popup__comments-list">
+          <span>12.12.2019</span>
+          <span>John Doe</span>
+          <p>I'd love you buy it</p>
+        </div>
+      </div>
     </div>
-    <div class="task">
-      <ul id="list">
-      </ul>
+    <div class="form-title">
+      <h3>Add comments</h3>
     </div>
-    <div class="clearBtn">
-      <button type="button" class="deleteBtn" id="deleteBtn">Clear All Completely</button>
-    </div>
-  </div>
+    <form action="/">
+      <input class="name" type="text" id="name" name="name" placeholder="Your name">
+      <textarea name="comment" id="textarea" cols="30" rows="10" placeholder="Your insgight"></textarea>
+      <button type="submit">Comment</button>
+    </form>
+  </section>
 </body>
 </html>
