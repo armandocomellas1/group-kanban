@@ -19,14 +19,15 @@ const popup = (id) => {
   const popupNameForm = document.createElement('input');
   const popupMessageForm = document.createElement('textarea');
   const popupSubmitForm = document.createElement('button');
-  const popupCloseForm = document.createElement('button');
-  const popupClose = document.createElement('button');
+  // const popupCloseForm = document.createElement('button');
+  const popupClose = document.createElement('div');
 
   popup.classList.add('popup');
   popupContent.classList.add('popup__content');
   popupTitle.classList.add('popup__title');
   popupRating.classList.add('popup__rating');
   popupScore.classList.add('popup__score');
+  popupClose.classList.add('popup__close');
   popupImage.classList.add('popup__image');
   popupDescription.classList.add('popup__description');
   popupCategory.classList.add('popup__category');
@@ -36,8 +37,7 @@ const popup = (id) => {
   popupNameForm.classList.add('popup__name-form');
   popupMessageForm.classList.add('popup__comment-form');
   popupSubmitForm.classList.add('popup__submit-form');
-  popupCloseForm.classList.add('popup__close-form');
-  popupClose.classList.add('popup__close');
+  // popupCloseForm.classList.add('popup__close-form');
 
   popupScore.setAttribute('id', 'popupScore');
   popupTitleForm.setAttribute('id', 'popupTitleForm');
@@ -53,16 +53,17 @@ const popup = (id) => {
   popupMessageForm.setAttribute('maxlength', '200');
   popupSubmitForm.setAttribute('type', 'submit');
   popupSubmitForm.setAttribute('value', 'Submit');
-  popupCloseForm.setAttribute('type', 'button');
-  popupCloseForm.setAttribute('value', 'Close');
+  // popupCloseForm.setAttribute('type', 'button');
+  // popupCloseForm.setAttribute('value', 'Close');
   popupClose.setAttribute('type', 'button');
-  popupClose.setAttribute('value', 'Close');
+  // popupClose.setAttribute('value', 'Close');
   popupClose.setAttribute('id', 'popupClose');
   body.appendChild(popup);
   popup.appendChild(popupContent);
   popupContent.appendChild(popupTitle);
   popupContent.appendChild(popupRating);
   popupContent.appendChild(popupScore);
+  popupContent.appendChild(popupClose);
   popupContent.appendChild(popupImage);
   popupContent.appendChild(popupDescription);
   popupContent.appendChild(popupCategory);
@@ -72,33 +73,32 @@ const popup = (id) => {
   popupForm.appendChild(popupNameForm);
   popupForm.appendChild(popupMessageForm);
   popupForm.appendChild(popupSubmitForm);
-  popupForm.appendChild(popupCloseForm);
-  popupForm.appendChild(popupClose);
+  // popupForm.appendChild(popupCloseForm);
 
   const popupInfo = async () => {
     const apiUrl = `https://api.tvmaze.com/shows/${id}`;
     const result = await fetch(apiUrl);
     const data = await result.json();
 
-    document.querySelector('.popup__title').textContent = data.name;
-    document.querySelector('.popup__score').textContent = data.rating.average;
+    document.querySelector('.popup__title').innerHTML = data.name;
+    document.querySelector('.popup__score').textContent = `Rating: ${data.rating.average}`;
+    document.querySelector('.popup__close').textContent = 'X';
     document.querySelector('.popup__image').src = data.image.original;
-    document.querySelector('.popup__description').textContent = data.summary;
-    document.querySelector('.popup__category').textContent = data.genres;
+    document.querySelector('.popup__description').innerHTML = data.summary;
+    // document.querySelector('.popup__category').textContent = data.genres;
     document.querySelector('.popup__comment-ul').innerHTML = '';
     document.querySelector('.popup__title-form').textContent = 'Leave a comment';
     document.querySelector('.popup__name-form').value = '';
     document.querySelector('.popup__comment-form').value = '';
-    document.querySelector('.popup__submit-form').value = 'Submit';
-    document.querySelector('.popup__close-form').value = 'Close';
-    document.querySelector('.popup__close').value = 'X';
+    document.querySelector('.popup__submit-form').textContent = 'Submit';
+    // document.querySelector('.popup__close-form').value = 'Close';
 
     data.genres.forEach((genre) => {
       const genreLi = document.createElement('li');
       genreLi.classList.add('genre');
       genreLi.setAttribute('id', `genre${i}`);
       document.querySelector('.popup__category').appendChild(genreLi);
-      document.getElementById(`genre${i}`).textContent = genre;
+      document.getElementById(`genre${i}`).innerHTML = `${genre}`;
       i += 1;
     });
   };
