@@ -8,7 +8,7 @@
 
 html {
   padding: 2rem;
-  background-color: aqua;
+  background-color: rgb(137, 135, 126);
 }
 
 header {
@@ -69,13 +69,13 @@ header img {
   margin-bottom: 1rem;
 }
 
-.popup-title {
+.popup__title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.popup-text {
+.popup__text {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -161,7 +161,7 @@ form button {
   .popup {
     padding: 2rem 5rem;
   }
-  
+
   .popup__content {
     flex-direction: row;
   }
