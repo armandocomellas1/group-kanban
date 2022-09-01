@@ -245,6 +245,7 @@ const createDOMListPeoples = ((event) => {
       const getParentCount = document.getElementById('people_cont').childElementCount;
       const showNumber = `People ${getParentCount}`;
       document.getElementsByClassName('people')[0].innerText = showNumber;
+      checkPeople = false;
     });
   }
 });
