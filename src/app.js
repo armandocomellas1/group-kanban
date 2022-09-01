@@ -1,4 +1,21 @@
-const createLike = async (createIDShow) => {
+let count = -1;
+const createLike = async () => {
+  const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
+  const response = await fetch(involvmentApi, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  if (response.status === 201) {
+    count += 1;
+    const data = await response.text();
+    return [data, count];
+  }
+  return false;
+};
+
+const createLikeEpisode = async (createIDShow) => {
   const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
   const response = await fetch(involvmentApi, {
     method: 'POST',
@@ -30,20 +47,18 @@ const createItem = async (ID, event) => {
     },
   });
   const dataPost = await responsePost.text();
-
+  let getItemsNum = 1;
   if (dataPost === 'Created') {
-    const getParents = event.target.parentElement.firstChild.nextSibling.className;
-    let getItemsNum = 0;
+    const getParents = event.path[1].firstElementChild.id;
     if (dataGet !== '') {
       getItemsNum = JSON.parse(dataGet)[0].likes;
       getItemsNum = Number(getItemsNum) + 1;
-    } else {
-      getItemsNum = 1;
     }
     const sumLikes = getItemsNum;
     const concaString = `${sumLikes} Likes`;
-    document.getElementsByClassName(getParents)[0].innerHTML = concaString;
+    document.getElementById(getParents).innerHTML = concaString;
   }
+  return getItemsNum;
 };
 
 const getLikes = async (ID) => {
@@ -54,15 +69,18 @@ const getLikes = async (ID) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   });
-  const dataGet = await responseGet.text();
-  if (dataGet !== '') {
-    // const getParents = event.target.parentElement.firstChild.nextSibling.className;
-    const getItemsNum = JSON.parse(dataGet);
-    const sumLikes = getItemsNum[0].likes;
-    console.log('sumLikes', sumLikes);
-    // const concaString = `${sumLikes} Likes`;
-    // document.getElementsByClassName(getParents)[0].innerHTML = concaString;
+  try {
+    const dataGet = await responseGet.json();
+    return dataGet;
+  } catch (e) {
+    return false;
   }
 };
 
-export { createLike, createItem, getLikes };
+export
+{
+  createLike,
+  createItem,
+  getLikes,
+  createLikeEpisode,
+};
