@@ -3,6 +3,7 @@ const createAppShows = async (i) => {
   const loopShows = `https://api.tvmaze.com/shows/${i}`;
   const response = await fetch(loopShows, {
     method: 'GET',
+    mode: 'cors',
   });
   const data = await response.json();
   if (data.status !== 404) {
@@ -16,6 +17,7 @@ const createAppEpisodes = async (i) => {
   const loopShows = `https://api.tvmaze.com/episodes/${i}`;
   const response = await fetch(loopShows, {
     method: 'GET',
+    mode: 'cors',
   });
   const data = await response.json();
   if (data.status !== 404) {
