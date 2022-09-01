@@ -1,13 +1,13 @@
 const url = 'https://api.themoviedb.org/3/movie/550?api_key=346a39160688fd6b7c615712dce07126';
 const idApp = '345Y6E73yjavl4eR3trH';
 
-const submitLikes = async (id) => {
+const submitLikes = async (elementId) => {
   const response = await fetch(`${url}${idApp}/likes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ item_id: id }),
+    body: JSON.stringify({ item_id: elementId }),
   });
   const data = await response.text();
   return data;
@@ -31,8 +31,8 @@ const submitComments = async (_id, _name, _comment) => {
       comment: _comment,
     }),
   });
-  const comment = await response.text();
-  return comment;
+  const post = await response.text();
+  return post;
 };
 
 const catchComments = async (_id) => {

@@ -1,24 +1,24 @@
 import './index.css';
-import info from '../modules/api.js';
-import { catchLikes, submitLikes } from '../modules/asyncApi.js';
-import popup from '../modules/popup.js';
+import info from './modules/api.js';
+import { catchLikes, submitLikes } from './modules/asyncApi.js';
+import popup from './modules/popup.js';
 
-const amountMovies = document.getElementsByTagName('h3')[0];
+const amountMovies = document.getElementsByTagName('h3');
 
 const updateLikes = async () => {
-  const likes = await catchLikes();
+  const response = await catchLikes();
   document.querySelectorAll('.starCount').forEach((button) => {
-    for (let i = 0; i < likes.length; i += 1) {
-      if (likes[i].item_id === button.dataset.id) {
-        button.innerText = likes[i].likes;
+    for (let i = 0; i < response.length; i += 1) {
+      if (response[i].item_id === Number(button.id)) {
+        button.lastChild.textContent = response[i].likes;
       }
     }
   });
 };
 
-const modals = document.querySelector('.modals');
+const cards = document.querySelector('.cards');
 const createElement = async (requestUrl) => {
-  modals.innerHTML = '';
+  cards.innerHTML = '';
   await info(requestUrl)
 
     .then((data) => {
@@ -29,7 +29,7 @@ const createElement = async (requestUrl) => {
         div.classList.add('cardItem');
         const img = document.createElement('div');
         img.classList.add('cardImg');
-        img.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${item.backdrop_path})`;
+        img.style.backgroundImage = `url(${item.image.original})`;
         const title = document.createElement('h1');
         title.classList.add('cardTitle');
         title.textContent = `S${item.season_number}E${item.episode_number} ${item.name}`;
@@ -43,18 +43,18 @@ const createElement = async (requestUrl) => {
         const stars = document.createElement('div');
         stars.classList.add('stars');
 
-        const starRate = document.createElement('div');
+        const starRate = document.createElement('span');
         starRate.classList.add('material-icons-round');
         starRate.classList.add('icons');
         starRate.classList.add('starRate');
         starRate.textContent = 'Rate of Stars';
 
-        const starCount = document.createElement('div');
+        const starCount = document.createElement('span');
         starCount.classList.add('starCount');
         starCount.setAttribute('id', item.id);
         starCount.textContent = '0';
 
-        const starBorder = document.createElement('div');
+        const starBorder = document.createElement('span');
         starBorder.classList.add('material-icons-round');
         starBorder.classList.add('starBorder');
         starBorder.textContent = 'star_border';
@@ -65,7 +65,7 @@ const createElement = async (requestUrl) => {
           submitLikes(item.show.id);
           starBorder.classList.toggle('liked');
           starCount.setAttribute('disabled', true);
-          setTimeout(updateLikes, 1000);
+          setTimeout(updateLikes, 400);
         });
 
         const commentBtn = document.createElement('button');
@@ -73,7 +73,7 @@ const createElement = async (requestUrl) => {
         commentBtn.textContent = 'Comment';
         stars.append(starRate, starCount, starBorder);
         div.append(img, title, description, h3, stars, commentBtn);
-        modals.append(div);
+        cards.append(div);
         amountElement += 1;
         amountMovies.textContent = `There are ${amountElement} movies`;
       });
@@ -82,7 +82,7 @@ const createElement = async (requestUrl) => {
 createElement('https://api.tvmaze.com/shows');
 
 const createElementForMovies = async (requestUrl) => {
-  modals.innerHTML = '';
+  cards.innerHTML = '';
   await info(requestUrl)
     .then((data) => {
       let amountElement = 0;
@@ -91,7 +91,7 @@ const createElementForMovies = async (requestUrl) => {
         div.classList.add('cardItem');
         const img = document.createElement('div');
         img.classList.add('cardImg');
-        img.style.backgroundImage = `url(${item.poster_path})`;
+        img.style.backgroundImage = `url(${item.image.original})`;
         const title = document.createElement('h1');
         title.classList.add('cardTitle');
         title.textContent = `${item.title}`;
@@ -99,18 +99,18 @@ const createElementForMovies = async (requestUrl) => {
         const stars = document.createElement('div');
         stars.classList.add('stars');
 
-        const starRate = document.createElement('div');
+        const starRate = document.createElement('span');
         starRate.classList.add('material-icons-round');
         starRate.classList.add('icons');
         starRate.classList.add('starRate');
         starRate.textContent = 'Rate of Stars';
 
-        const starCount = document.createElement('div');
+        const starCount = document.createElement('span');
         starCount.classList.add('starCount');
         starCount.setAttribute('id', item.id);
         starCount.textContent = '0';
 
-        const starBorder = document.createElement('div');
+        const starBorder = document.createElement('span');
         starBorder.classList.add('material-icons-round');
         starBorder.classList.add('starBorder');
         starBorder.textContent = 'star_border';
@@ -121,7 +121,7 @@ const createElementForMovies = async (requestUrl) => {
           submitLikes(item.id);
           starBorder.classList.toggle('liked');
           starCount.setAttribute('disabled', true);
-          setTimeout(updateLikes, 1000);
+          setTimeout(updateLikes, 400);
         });
 
         const commentBtn = document.createElement('button');
@@ -130,7 +130,7 @@ const createElementForMovies = async (requestUrl) => {
         commentBtn.setAttribute('id', item.id);
         stars.append(starRate, starCount, starBorder);
         div.append(img, title, stars, commentBtn);
-        modals.append(div);
+        cards.append(div);
         amountElement += 1;
         amountMovies.textContent = `There are ${amountElement} movies`;
 
@@ -144,5 +144,5 @@ const createElementForMovies = async (requestUrl) => {
 window.addEventListener('load', () => {
   const search = 'https://api.tvmaze.com/shows';
   createElementForMovies(search);
-  setTimeout(updateLikes, 1000);
+  setTimeout(updateLikes, 400);
 });

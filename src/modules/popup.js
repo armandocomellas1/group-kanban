@@ -12,6 +12,7 @@ const popup = (id) => {
   const popupScore = document.createElement('h3');
   const popupImage = document.createElement('img');
   const popupDescription = document.createElement('p');
+  const popupSubTitle = document.createElement('h3');
   const popupCategory = document.createElement('p');
   const popupCommmentUl = document.createElement('ul');
   const popupForm = document.createElement('form');
@@ -19,7 +20,6 @@ const popup = (id) => {
   const popupNameForm = document.createElement('input');
   const popupMessageForm = document.createElement('textarea');
   const popupSubmitForm = document.createElement('button');
-  // const popupCloseForm = document.createElement('button');
   const popupClose = document.createElement('div');
 
   popup.classList.add('popup');
@@ -31,15 +31,16 @@ const popup = (id) => {
   popupImage.classList.add('popup__image');
   popupDescription.classList.add('popup__description');
   popupCategory.classList.add('popup__category');
+  popupSubTitle.classList.add('popup__subtitle');
   popupCommmentUl.classList.add('popup__comment-ul');
   popupForm.classList.add('popup__form');
   popupTitleForm.classList.add('popup__title-form');
   popupNameForm.classList.add('popup__name-form');
   popupMessageForm.classList.add('popup__comment-form');
   popupSubmitForm.classList.add('popup__submit-form');
-  // popupCloseForm.classList.add('popup__close-form');
 
   popupScore.setAttribute('id', 'popupScore');
+  popupSubTitle.setAttribute('id', 'popupSubTitle');
   popupTitleForm.setAttribute('id', 'popupTitleForm');
   popupNameForm.setAttribute('name', 'name');
   popupNameForm.setAttribute('placeholder', 'Name');
@@ -50,13 +51,9 @@ const popup = (id) => {
   popupMessageForm.setAttribute('placeholder', 'Comment');
   popupMessageForm.setAttribute('type', 'text');
   popupMessageForm.setAttribute('required', '');
-  popupMessageForm.setAttribute('maxlength', '200');
+  popupMessageForm.setAttribute('maxlength', '500');
   popupSubmitForm.setAttribute('type', 'submit');
-  popupSubmitForm.setAttribute('value', 'Submit');
-  // popupCloseForm.setAttribute('type', 'button');
-  // popupCloseForm.setAttribute('value', 'Close');
   popupClose.setAttribute('type', 'button');
-  // popupClose.setAttribute('value', 'Close');
   popupClose.setAttribute('id', 'popupClose');
   body.appendChild(popup);
   popup.appendChild(popupContent);
@@ -67,13 +64,13 @@ const popup = (id) => {
   popupContent.appendChild(popupImage);
   popupContent.appendChild(popupDescription);
   popupContent.appendChild(popupCategory);
+  popupContent.appendChild(popupSubTitle);
   popupContent.appendChild(popupCommmentUl);
   popupContent.appendChild(popupForm);
   popupForm.appendChild(popupTitleForm);
   popupForm.appendChild(popupNameForm);
   popupForm.appendChild(popupMessageForm);
   popupForm.appendChild(popupSubmitForm);
-  // popupForm.appendChild(popupCloseForm);
 
   const popupInfo = async () => {
     const apiUrl = `https://api.tvmaze.com/shows/${id}`;
@@ -85,13 +82,12 @@ const popup = (id) => {
     document.querySelector('.popup__close').textContent = 'X';
     document.querySelector('.popup__image').src = data.image.original;
     document.querySelector('.popup__description').innerHTML = data.summary;
-    // document.querySelector('.popup__category').textContent = data.genres;
+    document.querySelector('#popupSubTitle').textContent = 'Comments';
     document.querySelector('.popup__comment-ul').innerHTML = '';
     document.querySelector('.popup__title-form').textContent = 'Leave a comment';
-    document.querySelector('.popup__name-form').value = '';
-    document.querySelector('.popup__comment-form').value = '';
+    // document.querySelector('.popup__name-form').value = '';
+    // document.querySelector('.popup__comment-form').value = '';
     document.querySelector('.popup__submit-form').textContent = 'Submit';
-    // document.querySelector('.popup__close-form').value = 'Close';
 
     data.genres.forEach((genre) => {
       const genreLi = document.createElement('li');
@@ -107,15 +103,18 @@ const popup = (id) => {
   const updateComments = async (id) => {
     let comments = await catchComments(id);
     comments = Array.isArray(comments) ? comments : [];
-    comments.forEach((comment) => {
-      const commentLi = document.createElement('li');
-      commentLi.classList.add('comment');
-      commentLi.setAttribute('id', 'comment');
-      document.querySelector('.popup__comment-ul').appendChild(commentLi);
-      document.getElementById('comment').textContent = comment.message;
-    });
-    commentsCount = comments.length;
-    document.querySelector('.popup__title').textContent = `Amount (${commentsCount})`;
+    if (comments.length > 0) {
+      comments.forEach((comment) => {
+        const commentLi = document.createElement('li');
+        commentLi.classList.add('comment');
+        commentLi.setAttribute('id', `comment${commentsCount}`);
+        document.querySelector('.popup__comment-ul').appendChild(commentLi);
+        document.getElementById(`comment${commentsCount}`).innerHTML = `${comment.name}: ${comment.message}`;
+        commentsCount += 1;
+      });
+      commentsCount = comments.length;
+      document.querySelector('.popup__subtitle').textContent = `We have ${commentsCount} comments so far`;
+    }
   };
   updateComments(id);
 
@@ -125,7 +124,7 @@ const popup = (id) => {
     popupCommmentUl.innerHTML = '';
     setTimeout(() => {
       updateComments(id);
-    }, '1000');
+    }, '500');
     popupNameForm.value = '';
     popupMessageForm.value = '';
   });
@@ -133,8 +132,8 @@ const popup = (id) => {
     e.preventDefault();
     popup.remove();
   });
-  window.addEventListener('keydown', (e) => {
-    if (e.key === popup) {
+  window.addEventListener('click', (e) => {
+    if (e.target === popup) {
       popup.remove();
     }
   });
