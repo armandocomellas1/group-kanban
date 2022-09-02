@@ -1,12 +1,14 @@
 import './style.css';
 import { createAppShows, createAppEpisodes, createDOMListPeople } from './addlike';
 import { createLike, createItem, getLikes } from './app';
+import popup from './modules/popup';
 
 let getShowsList;
 let getEpisodeList;
 let getPeopleList;
 let checkEpisode = true;
 let checkPeople = true;
+const globalArray = [];
 
 const createDOMList = ((event) => {
   if (event === 'first' || event === 'load') {
@@ -41,6 +43,7 @@ const createDOMList = ((event) => {
         <button class="comments">${craeteComment}</button>
         <button class="reserves">${craeteReserv}</button>
       `;
+        globalArray.push(sortObj[i]);
         const createParentEl = document.createElement('div');
         createParentEl.classList.add('show');
         createParentEl.innerHTML = createTemplate;
@@ -77,6 +80,11 @@ const createDOMList = ((event) => {
               const newElement = getElement[1];
               newElement.setAttribute('id', getLikesId);
               document.getElementById(getLikesId).innerHTML = likeString;
+            } else if (getStatus === false) {
+              let getElement = document.getElementsByClassName('like_cont')[i];
+              getElement = getElement.childNodes;
+              const newElement = getElement[1];
+              newElement.setAttribute('id', selectIdSort);
             }
           });
         }
@@ -327,6 +335,20 @@ document.addEventListener('click', (event) => {
   if (localStorage.length > 0 && getEventType === 'material-symbols-outlined') {
     const showListId = event.path[1].firstElementChild.id;
     createItem(showListId, event);
+  }
+});
+
+document.addEventListener('click', (event) => {
+  const getEventType = event.target.className;
+  if (localStorage.length > 0 && getEventType === 'comments') {
+    const showListId = event.path[1].childNodes[3].innerText;
+    globalArray.forEach((data) => {
+      if (data.name === showListId) {
+        const getId = data.id;
+        document.getElementsByClassName('container')[0].style.display = 'none';
+        popup(getId);
+      }
+    });
   }
 });
 
