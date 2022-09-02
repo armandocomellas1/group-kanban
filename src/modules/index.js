@@ -149,7 +149,7 @@ const getComments = (() => {
 
 window.addEventListener('load', () => {
   const search = 'https://api.tvmaze.com/shows';
-  // createElementForMovies(search);
-  // getComments();
+  createElementForMovies(search);
+  getComments();
   setTimeout(updateLikes, 400);
 });
