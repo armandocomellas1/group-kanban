@@ -1,0 +1,153 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  z-index: 1;
+  border: 2px solid #000;
+  border-radius: 1rem;
+  background-color: #fff;
+  padding: 0 2%;
+}
+
+.popup__close {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.popup__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.popup__image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+.popup__description {
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+.popup__category {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.popup__comment-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+.popup__title-form {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.popup__name-form {
+  width: 70%;
+  height: 2rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(59, 45, 45);
+  border-radius: 5px;
+  margin: 0.5rem 0;
+}
+
+.popup__comment-form {
+  width: 80%;
+  height: 10rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(59, 45, 45);
+  border-radius: 5px;
+}
+
+.popup__submit-form {
+  width: 50%;
+  height: 2rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(59, 45, 45);
+  border-radius: 5px;
+  margin: 0.5rem 0;
+  background-color: rgb(59, 45, 45);
+  color: white;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+  .popup {
+    padding: 2rem 5rem;
+  }
+
+  .popup__title {
+    text-align: center;
+    font-size: 5rem;
+    font-weight: 700;
+    padding-top: 1rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    text-align: justify;
+    padding: 0.5rem;
+  }
+
+  .popup__category {
+    font-size: 1.5rem;
+    margin: 0.5rem 0 3rem 0;
+  }
+
+  .popup__name-form {
+    height: 3rem;
+    border-radius: 8px;
+  }
+
+  .popup__comment-form {
+    height: 12rem;
+    border-radius: 8px;
+  }
+
+  .popup__title-form {
+    font-size: 2rem;
+  }
+
+  .popup__submit-form {
+    font-size: 1.5rem;
+    width: 15rem;
+    height: 3rem;
+    border-radius: 8px;
+  }
+}
