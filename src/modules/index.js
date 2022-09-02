@@ -140,6 +140,13 @@ const createElementForMovies = async (requestUrl) => {
     });
 };
 
+const getComments = (() => {
+  const getLocalStrg = localStorage.length;
+  for (let i = 0; i < getLocalStrg; i += 1) {
+    console.log(localStorage[i]);
+  }
+});
+
 window.addEventListener('load', () => {
   const search = 'https://api.tvmaze.com/shows';
   // createElementForMovies(search);

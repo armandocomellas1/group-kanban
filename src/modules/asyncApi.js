@@ -36,24 +36,34 @@ const submitComments = async (_id, _name, _comment) => {
   return post;
 };
 
-// const catchComments = async (_id) => {
-//   const response = await fetch(`${url}${idApp}/likes`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ item_id: elementId }),
-//   });
-//   return comments;
-// };
+const getComments = async (ID) => {
+  const involvmentApi = `${urlComments}/${ID}/comments?item_id=${ID}`;
+  const responseGet = await fetch(involvmentApi, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  try {
+    const dataGet = await responseGet.json();
+    console.log('GetData', dataGet);
+    const getComment = dataGet[0].comment;
+    const getDate = dataGet[0].creation_date;
+    const getUserName = dataGet[0].username;
+    document.getElementById('comment1').innerHTML = getComment + ' ' +  getUserName + ' ' + getDate;
+    return dataGet;
+  } catch (e) {
+    return false;
+  }
+};
 
-const createComments = async (ID) => {
+const createComments = async (ID, name, message) => {
   const response = await fetch(`${urlComments}/${ID}/comments`, {
     method: 'POST',
     body: JSON.stringify({
       item_id: ID,
-      username: ID,
-      comment: ID,
+      username: name,
+      comment: message,
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
@@ -61,13 +71,14 @@ const createComments = async (ID) => {
   });
   if (response.status === 201) {
     const data = await response.text();
-    console.log('data_comments', data);
+    console.log('postData', data);
+    getComments(ID);
     return [data];
   }
   return false;
 };
 
-const catchComments = async () => {
+const catchComments = async (ID, name, message) => {
   let getId;
   const response = await fetch(urlComments, {
     method: 'POST',
@@ -78,16 +89,16 @@ const catchComments = async () => {
   if (response.status === 201) {
     const data = await response.text();
     getId = data;
-    console.log('getId', getId);
-    const gets = document.getElementsByClassName('popup__name-form')[0].value;
-    console.log('gets', gets);
-
-    createComments(getId);
+    localStorage.setItem('getId', getId);
+    console.log('checkcreateID', getId);
+    console.log('name', name);
+    console.log('message', message);
+    createComments(getId, name, message);
     return [data];
   }
   return false;
 };
 
 export {
-  submitLikes, catchLikes, submitComments, catchComments,
+  submitLikes, catchLikes, submitComments, catchComments, getComments,
 };

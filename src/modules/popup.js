@@ -100,10 +100,8 @@ const popup = (id) => {
   };
   popupInfo();
 
-  const updateComments = async (id, e) => {
-    let comments = await catchComments(id);
-    console.log('event_e', e);
-
+  const updateComments = async (id, name, message) => {
+    let comments = await catchComments(id, name, message);
     comments = Array.isArray(comments) ? comments : [];
     if (comments.length > 0) {
       comments.forEach((comment) => {
@@ -122,11 +120,10 @@ const popup = (id) => {
 
   popupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    submitComments(id, popupNameForm.value, popupMessageForm.value);
-    popupCommmentUl.innerHTML = '';
-    setTimeout(() => {
-      updateComments(id, e);
-    }, '500');
+    // const store = [];
+    // store.push(document.getElementsByClassName('popup__name-form')[0].value);
+    // store.push(document.getElementsByClassName('popup__comment-form')[0].value);
+    updateComments(id, popupNameForm.value, popupMessageForm.value);
     popupNameForm.value = '';
     popupMessageForm.value = '';
   });
