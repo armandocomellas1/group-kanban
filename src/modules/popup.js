@@ -1,4 +1,4 @@
-import { submitComments, catchComments } from './asyncApi';
+import { catchComments } from './asyncApi';
 
 let commentsCount = 0;
 
@@ -85,8 +85,8 @@ const popup = (id) => {
     document.querySelector('#popupSubTitle').textContent = 'Comments';
     document.querySelector('.popup__comment-ul').innerHTML = '';
     document.querySelector('.popup__title-form').textContent = 'Leave a comment';
-    // document.querySelector('.popup__name-form').value = '';
-    // document.querySelector('.popup__comment-form').value = '';
+    document.querySelector('.popup__name-form').value = '';
+    document.querySelector('.popup__comment-form').value = '';
     document.querySelector('.popup__submit-form').textContent = 'Submit';
 
     data.genres.forEach((genre) => {
@@ -103,7 +103,7 @@ const popup = (id) => {
   const updateComments = async (id, name, message) => {
     let comments = await catchComments(id, name, message);
     comments = Array.isArray(comments) ? comments : [];
-    if (comments.length > 0) {
+    if (comments) {
       comments.forEach((comment) => {
         const commentLi = document.createElement('li');
         commentLi.classList.add('comment');
@@ -113,7 +113,7 @@ const popup = (id) => {
         commentsCount += 1;
       });
       commentsCount = comments.length;
-      document.querySelector('.popup__subtitle').textContent = `We have ${commentsCount} comments so far`;
+      document.querySelector('.popup__subtitle').textContent = `There are ${commentsCount} comments`;
     }
   };
   updateComments(id);

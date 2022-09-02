@@ -19,7 +19,6 @@
 }
 
 .popup__close {
-  font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size: 3rem;
   font-weight: 700;
@@ -53,12 +52,21 @@
   padding: 1rem 0;
 }
 
-.popup__title {
+.popup__comment-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+/* .popup__title {
   text-align: center;
   font-size: 3rem;
   font-weight: 700;
   padding-top: 1rem;
-}
+} */
 
 .popup__title-form {
   text-align: center;

@@ -46,11 +46,10 @@ const getComments = async (ID) => {
   });
   try {
     const dataGet = await responseGet.json();
-    console.log('GetData', dataGet);
     const getComment = dataGet[0].comment;
     const getDate = dataGet[0].creation_date;
     const getUserName = dataGet[0].username;
-    document.getElementById('comment1').innerHTML = getComment + ' ' +  getUserName + ' ' + getDate;
+    document.getElementById('comment1').innerHTML = `${getDate} - ${getUserName}: ${getComment}`;
     return dataGet;
   } catch (e) {
     return false;
@@ -71,7 +70,6 @@ const createComments = async (ID, name, message) => {
   });
   if (response.status === 201) {
     const data = await response.text();
-    console.log('postData', data);
     getComments(ID);
     return [data];
   }
@@ -90,9 +88,6 @@ const catchComments = async (ID, name, message) => {
     const data = await response.text();
     getId = data;
     localStorage.setItem('getId', getId);
-    console.log('checkcreateID', getId);
-    console.log('name', name);
-    console.log('message', message);
     createComments(getId, name, message);
     return [data];
   }
