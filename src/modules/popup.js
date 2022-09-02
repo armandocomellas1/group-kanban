@@ -1,8 +1,26 @@
-import { catchComments } from './asyncApi';
+import { catchComments, createComments, getComments } from './asyncApi';
 
-let commentsCount = 0;
+let countTwo = 0;
 
 const popup = (id) => {
+  const getLocalString = localStorage.getItem(`getID${countTwo}`);
+  console.log('getLocalString', getLocalString);
+  if (getLocalString !== null) {
+    const updateComments = async (getLocalString) => {
+      const getCommentsObj = await getComments(getLocalString);
+      console.log('getCommentsObj', getCommentsObj);
+      const commentLi = document.createElement('li');
+      commentLi.classList.add('comment');
+      commentLi.setAttribute('id', `comment${countTwo}`);
+      document.querySelector('.popup__comment-ul').appendChild(commentLi);
+      console.log('count', countTwo);
+      document.getElementById(`comment${countTwo}`).innerHTML = `${getCommentsObj[0].username} - ${getCommentsObj[0].creation_date} - ${getCommentsObj[0].comment}`;
+      document.querySelector('.popup__subtitle').textContent = `There are ${countTwo + 1} comments`;
+      countTwo += 1;
+    };
+    updateComments(getLocalString);
+  }
+
   let i = 0;
   const body = document.querySelector('body');
   const popup = document.createElement('div');
@@ -100,23 +118,33 @@ const popup = (id) => {
   };
   popupInfo();
 
+  let count = 0;
   const updateComments = async (id, name, message) => {
-    let comments = await catchComments(id, name, message);
-    comments = Array.isArray(comments) ? comments : [];
-    if (comments) {
-      comments.forEach((comment) => {
-        const commentLi = document.createElement('li');
-        commentLi.classList.add('comment');
-        commentLi.setAttribute('id', `comment${commentsCount}`);
-        document.querySelector('.popup__comment-ul').appendChild(commentLi);
-        document.getElementById(`comment${commentsCount}`).innerHTML = `${comment.name}: ${comment.message}`;
-        commentsCount += 1;
-      });
-      commentsCount = comments.length;
-      document.querySelector('.popup__subtitle').textContent = `There are ${commentsCount} comments`;
+    const getListDOM = document.getElementById('popupSubTitle').childElementCount;
+    const createId = await catchComments(id, name, message, count);
+    const comments = await createComments(createId, name, message);
+    const getCommentsObj = await getComments(createId, name, message);
+    const getDataStrcut = getCommentsObj[0];
+    const getName = getDataStrcut.username;
+    const getDate = getDataStrcut.creation_date;
+    const getComment = getDataStrcut.comment;
+    console.log('getDataStrcut', getDataStrcut);
+
+    if (getDataStrcut) {
+      const commentLi = document.createElement('li');
+      commentLi.classList.add('comment');
+      commentLi.setAttribute('id', `comment${count}`);
+      document.querySelector('.popup__comment-ul').appendChild(commentLi);
+      console.log('count', count);
+      document.getElementById(`comment${count}`).innerHTML = `${getDate} - ${getName} - ${getComment}`;
+      document.querySelector('.popup__subtitle').textContent = `There are ${count + 1} comments`;
+      count += 1;
+    } else {
+      document.querySelector('.popup__subtitle').textContent = `There are ${0} comments`;
     }
   };
-  updateComments(id);
+
+  // updateComments(id);
 
   popupForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -127,16 +155,22 @@ const popup = (id) => {
     popupNameForm.value = '';
     popupMessageForm.value = '';
   });
+
   popupClose.addEventListener('click', (e) => {
     e.preventDefault();
     popup.remove();
     document.getElementsByClassName('container')[0].style.display = 'grid';
   });
+
   window.addEventListener('click', (e) => {
     if (e.target === popup) {
       popup.remove();
     }
   });
 };
+
+window.addEventListener('load', () => {
+
+});
 
 export default popup;
