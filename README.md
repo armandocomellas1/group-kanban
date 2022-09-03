@@ -1,7 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 # Capstone Project 2
 
->
 This project is a movie database that allows users to search for movies, add them to their favorites, and comment on them. The website is built using API's, ECMA6, Webpack, JavaScript objects, storage and arrays.
 
 ## Built With
