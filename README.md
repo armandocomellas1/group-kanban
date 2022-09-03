@@ -26,7 +26,6 @@ If you want to clone this project:
 - Copy the SSH link
 - On your local machine, type the command git clone and paste the SSH link
 
-
 ### Prerequisites
 - Code editor
 - Knowledge in HTML
