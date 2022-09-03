@@ -1,4 +1,13 @@
 let count = -1;
+const showsLocalStorage = [
+  '92zmbOjeo4WxiK89FZLx',
+  'zUnnNqHjQ6ru8qmqSoVR',
+  'qbLjPlxYH1Pwzx8K3IOZ',
+  'dXaR2R2pgioHa23u3JEp',
+  'YZet57kFWO62nTFz4cgy',
+  '1IcwoN1UVOTao1HnekHtp',
+];
+
 const createLike = async () => {
   const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
   const response = await fetch(involvmentApi, {
@@ -83,4 +92,5 @@ export
   createItem,
   getLikes,
   createLikeEpisode,
+  showsLocalStorage,
 };

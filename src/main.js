@@ -1,6 +1,11 @@
 import './style.css';
 import { createAppShows, createAppEpisodes, createDOMListPeople } from './addlike';
-import { createLike, createItem, getLikes } from './app';
+import {
+  createLike,
+  createItem,
+  getLikes,
+  showsLocalStorage,
+} from './app';
 import popup from './modules/popup';
 
 let getShowsList;
@@ -8,7 +13,7 @@ let getEpisodeList;
 let getPeopleList;
 let checkEpisode = true;
 let checkPeople = true;
-const globalArray = [];
+const localStorageStatic = showsLocalStorage;
 
 const createDOMList = ((event) => {
   if (event === 'first' || event === 'load') {
@@ -48,25 +53,25 @@ const createDOMList = ((event) => {
         createParentEl.classList.add('show');
         createParentEl.innerHTML = createTemplate;
         getParentNode.appendChild(createParentEl);
-        if (localStorage.length <= 0) {
+        if (localStorageStatic.length <= 0) {
           createLike().then((data) => {
             const selectId = data[0];
             const selectInd = data[1];
             let getElement = document.getElementsByClassName('like_cont')[selectInd];
-            localStorage.setItem(selectInd, selectId);
+            localStorageStatic.setItem(selectInd, selectId);
             getElement = getElement.childNodes;
             const newElement = getElement[1];
             newElement.setAttribute('id', selectId);
           });
         }
       }
-      if (localStorage.length > 0) {
-        const sorted = Object.keys(localStorage).sort()
+      if (localStorageStatic.length > 0) {
+        const sorted = Object.keys(localStorageStatic).sort()
           .reduce((accumulator, key) => {
-            accumulator[key] = localStorage[key];
+            accumulator[key] = localStorageStatic[key];
             return accumulator;
           }, {});
-        for (let i = 0; i < localStorage.length; i += 1) {
+        for (let i = 0; i < localStorageStatic.length; i += 1) {
           const selectIdSort = sorted[i];
           const response = getLikes(selectIdSort);
           response.then((like) => {
@@ -133,25 +138,25 @@ const createDOMListEpisode = ((event) => {
         createParentEl.classList.add('show');
         createParentEl.innerHTML = createTemplate;
         getParentNode.appendChild(createParentEl);
-        if (localStorage.length <= 0) {
+        if (localStorageStatic.length <= 0) {
           createLike().then((data) => {
             const selectId = data[0];
             const selectInd = data[1];
             let getElement = document.getElementsByClassName('like_cont')[selectInd];
-            localStorage.setItem(selectInd, selectId);
+            localStorageStatic.setItem(selectInd, selectId);
             getElement = getElement.childNodes;
             const newElement = getElement[1];
             newElement.setAttribute('id', selectId);
           });
         }
       }
-      if (localStorage.length > 0 && event === 'first') {
-        const sorted = Object.keys(localStorage).sort()
+      if (localStorageStatic.length > 0 && event === 'first') {
+        const sorted = Object.keys(localStorageStatic).sort()
           .reduce((accumulator, key) => {
-            accumulator[key] = localStorage[key];
+            accumulator[key] = localStorageStatic[key];
             return accumulator;
           }, {});
-        for (let i = 0; i < localStorage.length; i += 1) {
+        for (let i = 0; i < localStorageStatic.length; i += 1) {
           const selectIdSort = sorted[i];
           const response = getLikes(selectIdSort);
           response.then((like) => {
@@ -214,25 +219,25 @@ const createDOMListPeoples = ((event) => {
         createParentEl.classList.add('show');
         createParentEl.innerHTML = createTemplate;
         getParentNode.appendChild(createParentEl);
-        if (localStorage.length <= 0) {
+        if (localStorageStatic.length <= 0) {
           createLike().then((data) => {
             const selectId = data[0];
             const selectInd = data[1];
             let getElement = document.getElementsByClassName('like_cont')[selectInd];
-            localStorage.setItem(selectInd, selectId);
+            localStorageStatic.setItem(selectInd, selectId);
             getElement = getElement.childNodes;
             const newElement = getElement[1];
             newElement.setAttribute('id', selectId);
           });
         }
       }
-      if (localStorage.length > 0 && event === 'first') {
-        const sorted = Object.keys(localStorage).sort()
+      if (localStorageStatic.length > 0 && event === 'first') {
+        const sorted = Object.keys(localStorageStatic).sort()
           .reduce((accumulator, key) => {
-            accumulator[key] = localStorage[key];
+            accumulator[key] = localStorageStatic[key];
             return accumulator;
           }, {});
-        for (let i = 0; i < localStorage.length; i += 1) {
+        for (let i = 0; i < localStorageStatic.length; i += 1) {
           const selectIdSort = sorted[i];
           const response = getLikes(selectIdSort);
           response.then((like) => {
@@ -259,14 +264,14 @@ const createDOMListPeoples = ((event) => {
 });
 
 document.getElementsByClassName('shows')[0].addEventListener('click', () => {
-  if (localStorage.length === 0) {
+  if (localStorageStatic.length === 0) {
     document.getElementById('show_cont').style.display = 'grid';
     document.getElementById('episode_cont').style.display = 'none';
     document.getElementById('people_cont').style.display = 'none';
     document.getElementsByClassName('shows')[0].style.textDecoration = 'underline';
     document.getElementsByClassName('shows')[0].style.fontWeight = 'bold';
     createDOMList('first');
-  } else if (localStorage.length > 0) {
+  } else if (localStorageStatic.length > 0) {
     document.getElementById('show_cont').style.display = 'grid';
     document.getElementById('episode_cont').style.display = 'none';
     document.getElementById('people_cont').style.display = 'none';
@@ -283,14 +288,14 @@ document.getElementsByClassName('shows')[0].addEventListener('click', () => {
 });
 
 document.getElementsByClassName('episodes')[0].addEventListener('click', () => {
-  if (localStorage.length === 0) {
+  if (localStorageStatic.length === 0) {
     document.getElementById('show_cont').style.display = 'none';
     document.getElementById('episode_cont').style.display = 'grid';
     document.getElementById('people_cont').style.display = 'none';
     document.getElementsByClassName('episodes')[0].style.textDecoration = 'underline';
     document.getElementsByClassName('episodes')[0].style.fontWeight = 'bold';
     createDOMListEpisode('first');
-  } else if (localStorage.length > 0) {
+  } else if (localStorageStatic.length > 0) {
     document.getElementById('show_cont').style.display = 'none';
     document.getElementById('episode_cont').style.display = 'grid';
     document.getElementById('people_cont').style.display = 'none';
@@ -307,14 +312,14 @@ document.getElementsByClassName('episodes')[0].addEventListener('click', () => {
 });
 
 document.getElementsByClassName('people')[0].addEventListener('click', () => {
-  if (localStorage.length === 0) {
+  if (localStorageStatic.length === 0) {
     document.getElementById('show_cont').style.display = 'none';
     document.getElementById('episode_cont').style.display = 'none';
     document.getElementById('people_cont').style.display = 'grid';
     document.getElementsByClassName('people')[0].style.textDecoration = 'underline';
     document.getElementsByClassName('people')[0].style.fontWeight = 'bold';
     createDOMListPeoples('first');
-  } else if (localStorage.length > 0) {
+  } else if (localStorageStatic.length > 0) {
     document.getElementById('show_cont').style.display = 'none';
     document.getElementById('episode_cont').style.display = 'none';
     document.getElementById('people_cont').style.display = 'grid';
@@ -332,7 +337,7 @@ document.getElementsByClassName('people')[0].addEventListener('click', () => {
 
 document.addEventListener('click', (event) => {
   const getEventType = event.target.className;
-  if (localStorage.length > 0 && getEventType === 'material-symbols-outlined') {
+  if (localStorageStatic.length > 0 && getEventType === 'material-symbols-outlined') {
     const showListId = event.path[1].firstElementChild.id;
     createItem(showListId, event);
   }
@@ -340,7 +345,7 @@ document.addEventListener('click', (event) => {
 
 document.addEventListener('click', (event) => {
   const getEventType = event.target.className;
-  if (localStorage.length > 0 && getEventType === 'comments') {
+  if (localStorageStatic.length > 0 && getEventType === 'comments') {
     const showListId = event.path[1].childNodes[3].innerText;
     globalArray.forEach((data) => {
       if (data.name === showListId) {
@@ -353,7 +358,7 @@ document.addEventListener('click', (event) => {
 });
 
 window.addEventListener('load', () => {
-  if (localStorage.length > 0) {
+  if (localStorageStatic.length > 0) {
     const queryString = window.location.hash;
     const splitQuery = queryString.split('#')[1];
     switch (splitQuery) {
@@ -382,7 +387,7 @@ window.addEventListener('load', () => {
         createDOMListPeoples('load');
         break;
     }
-  } else if (localStorage.length <= 0) {
+  } else if (localStorageStatic.length <= 0) {
     document.getElementById('show_cont').style.display = 'none';
     document.getElementById('episode_cont').style.display = 'none';
     document.getElementById('people_cont').style.display = 'none';
