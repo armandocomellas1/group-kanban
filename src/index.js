@@ -1,20 +1,19 @@
 import './index.css';
-import info from './modules/api.js';
-import { catchLikes, submitLikes } from './modules/asyncApi.js';
-import popup from './modules/popup.js';
+import info from './modules/api';
+import popup from './modules/popup';
 
 const amountMovies = document.getElementsByTagName('h3');
 
-const updateLikes = async () => {
-  const response = await catchLikes();
-  document.querySelectorAll('.starCount').forEach((button) => {
-    for (let i = 0; i < response.length; i += 1) {
-      if (response[i].item_id === Number(button.id)) {
-        button.lastChild.textContent = response[i].likes;
-      }
-    }
-  });
-};
+// const updateLikes = async () => {
+//   const response = await catchLikes();
+//   document.querySelectorAll('.starCount').forEach((button) => {
+//     for (let i = 0; i < response.length; i += 1) {
+//       if (response[i].item_id === Number(button.id)) {
+//         button.lastChild.textContent = response[i].likes;
+//       }
+//     }
+//   });
+// };
 
 const cards = document.querySelector('.cards');
 const createElement = async (requestUrl) => {
@@ -61,12 +60,12 @@ const createElement = async (requestUrl) => {
         starBorder.setAttribute('id', item.id);
         starBorder.classList.add('icons');
 
-        starBorder.addEventListener('click', () => {
-          submitLikes(item.show.id);
-          starBorder.classList.toggle('liked');
-          starCount.setAttribute('disabled', true);
-          setTimeout(updateLikes, 400);
-        });
+        // starBorder.addEventListener('click', () => {
+        //   submitLikes(item.show.id);
+        //   starBorder.classList.toggle('liked');
+        //   starCount.setAttribute('disabled', true);
+        //   setTimeout(updateLikes, 400);
+        // });
 
         const commentBtn = document.createElement('button');
         commentBtn.classList.add('commentBtn');
@@ -117,12 +116,12 @@ const createElementForMovies = async (requestUrl) => {
         starBorder.setAttribute('id', item.id);
         starBorder.classList.add('icons');
 
-        starBorder.addEventListener('click', () => {
-          submitLikes(item.id);
-          starBorder.classList.toggle('liked');
-          starCount.setAttribute('disabled', true);
-          setTimeout(updateLikes, 400);
-        });
+        // starBorder.addEventListener('click', () => {
+        //   submitLikes(item.id);
+        //   starBorder.classList.toggle('liked');
+        //   starCount.setAttribute('disabled', true);
+        //   setTimeout(updateLikes, 400);
+        // });
 
         const commentBtn = document.createElement('button');
         commentBtn.classList.add('commentBtn');
@@ -144,5 +143,5 @@ const createElementForMovies = async (requestUrl) => {
 window.addEventListener('load', () => {
   const search = 'https://api.tvmaze.com/shows';
   createElementForMovies(search);
-  setTimeout(updateLikes, 400);
+  // setTimeout(updateLikes, 400);
 });
