@@ -107,6 +107,7 @@ const popup = (id) => {
     document.querySelector('.popup__title-form').textContent = 'Leave a comment';
     document.querySelector('.popup__name-form').value = '';
     document.querySelector('.popup__comment-form').value = '';
+
     document.querySelector('.popup__submit-form').textContent = 'Submit';
 
     data.genres.forEach((genre) => {
