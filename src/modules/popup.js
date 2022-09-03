@@ -129,6 +129,7 @@ const popup = (id) => {
       }
     });
 
+    console.log('Control');
     await createComments(getValue, name, message);
     const getCommentsObj = await getComments(getValue, name, message);
     const iCn = getCommentsObj.length - 1;
@@ -175,6 +176,7 @@ const UpdatePopUp = (id) => {
     const checkVal = Object.keys(elem)[0];
     if (checkVal === id) {
       getValue = Object.values(elem);
+      console.log('getValue');
     }
   });
   const getComms = async () => {
