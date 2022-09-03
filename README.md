@@ -28,7 +28,7 @@ If you want to clone this project:
 
 ## Live demo video
 
-[live server](https://www.loom.com/share/9cc6b7e72e4743ed8e3351e95bebeebb?provider=slack-openid-connect)
+[live server](https://drive.google.com/file/d/1Jt785zsv6-_WwJkoNnZFqTxJvhsIXXxt/view?usp=sharing)
 
 ### Prerequisites
 - Code editor
