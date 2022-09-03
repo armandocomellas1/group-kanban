@@ -26,6 +26,9 @@ If you want to clone this project:
 - Copy the SSH link
 - On your local machine, type the command git clone and paste the SSH link
 
+## Live demo video
+
+[live server](https://www.loom.com/share/9cc6b7e72e4743ed8e3351e95bebeebb?provider=slack-openid-connect)
 
 ### Prerequisites
 - Code editor
@@ -51,7 +54,6 @@ If you want to clone this project:
 
 ### Deployment
 - Run the project in your local browser to view the index.html
-
 
 ## Authors
 
