@@ -16,7 +16,6 @@ const getComments = async (ID) => {
     const getDate = dataGet[0].creation_date;
     const getUserName = dataGet[0].username;
     const joinStr = `${getComment},${getDate},${getUserName}`;
-    // document.getElementById('comment0').innerHTML = `${getDate} - ${getUserName}: ${getComment}`;
     structData.push(joinStr);
     return dataGet;
   } catch (e) {
@@ -38,13 +37,12 @@ const createComments = async (ID, name, message) => {
   });
   if (response.status === 201) {
     const data = await response.text();
-    // getComments(ID);
     return data;
   }
   return false;
 };
 
-const catchComments = async (count) => {
+const catchComments = async () => {
   const response = await fetch(urlComments, {
     method: 'POST',
     headers: {
@@ -53,9 +51,6 @@ const catchComments = async (count) => {
   });
   if (response.status === 201) {
     const data = await response.text();
-    console.log(count);
-    localStorage.setItem(`getId${count}`, data);
-    // createComments(getId, name, message);
     return data;
   }
   return false;

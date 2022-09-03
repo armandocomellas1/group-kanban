@@ -1,13 +1,3 @@
-let count = -1;
-const showsLocalStorage = [
-  '92zmbOjeo4WxiK89FZLx',
-  'zUnnNqHjQ6ru8qmqSoVR',
-  'qbLjPlxYH1Pwzx8K3IOZ',
-  'dXaR2R2pgioHa23u3JEp',
-  'YZet57kFWO62nTFz4cgy',
-  '1IcwoN1UVOTao1HnekHtp',
-];
-
 const createLike = async () => {
   const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
   const response = await fetch(involvmentApi, {
@@ -17,14 +7,13 @@ const createLike = async () => {
     },
   });
   if (response.status === 201) {
-    count += 1;
     const data = await response.text();
-    return [data, count];
+    return [data];
   }
   return false;
 };
 
-const createLikeEpisode = async (createIDShow) => {
+const createLikeEpisode = async () => {
   const involvmentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/';
   const response = await fetch(involvmentApi, {
     method: 'POST',
@@ -33,19 +22,11 @@ const createLikeEpisode = async (createIDShow) => {
     },
   });
   const data = await response.text();
-  localStorage.setItem(createIDShow, data);
   return data;
 };
 
-const createItem = async (ID, event) => {
+const createItem = async (ID) => {
   const involvmentApi = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${ID}/likes/`;
-  const responseGet = await fetch(involvmentApi, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
-  const dataGet = await responseGet.text();
   const responsePost = await fetch(involvmentApi, {
     method: 'POST',
     body: JSON.stringify({
@@ -56,18 +37,18 @@ const createItem = async (ID, event) => {
     },
   });
   const dataPost = await responsePost.text();
-  let getItemsNum = 1;
   if (dataPost === 'Created') {
-    const getParents = event.path[1].firstElementChild.id;
-    if (dataGet !== '') {
-      getItemsNum = JSON.parse(dataGet)[0].likes;
-      getItemsNum = Number(getItemsNum) + 1;
-    }
-    const sumLikes = getItemsNum;
-    const concaString = `${sumLikes} Likes`;
-    document.getElementById(getParents).innerHTML = concaString;
+    const responseGet = await fetch(involvmentApi, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    const dataGetLikes = await responseGet.text();
+    const getTheLike = JSON.parse(dataGetLikes);
+    const stringLike = getTheLike[0].likes;
+    document.getElementById(ID).innerText = `${stringLike} Likes`;
   }
-  return getItemsNum;
 };
 
 const getLikes = async (ID) => {
@@ -92,5 +73,4 @@ export
   createItem,
   getLikes,
   createLikeEpisode,
-  showsLocalStorage,
 };

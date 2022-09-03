@@ -1,26 +1,28 @@
-import { catchComments, createComments, getComments } from './asyncApi';
+import { createComments, getComments } from './asyncApi';
+import './index.css';
 
-let countTwo = 0;
+const showsLocalStorage = [
+  {
+    82: 'HsHpOloMfGiHINwobwBb',
+  },
+  {
+    2: 'nJkYm8i6f1whLwKlGL2h',
+  },
+  {
+    32: 'SFELGqpiTDY7vqa4qPP6',
+  },
+  {
+    40: 'puDjKAyOOlNg6c3yVNBE',
+  },
+  {
+    29: 'Z9iR2Uwc3mD5DV5Ni0ic',
+  },
+  {
+    61: 'qit48rsQhWT2ls4pXLyV',
+  },
+];
 
 const popup = (id) => {
-  const getLocalString = localStorage.getItem(`getID${countTwo}`);
-  console.log('getLocalString', getLocalString);
-  if (getLocalString !== null) {
-    const updateComments = async (getLocalString) => {
-      const getCommentsObj = await getComments(getLocalString);
-      console.log('getCommentsObj', getCommentsObj);
-      const commentLi = document.createElement('li');
-      commentLi.classList.add('comment');
-      commentLi.setAttribute('id', `comment${countTwo}`);
-      document.querySelector('.popup__comment-ul').appendChild(commentLi);
-      console.log('count', countTwo);
-      document.getElementById(`comment${countTwo}`).innerHTML = `${getCommentsObj[0].username} - ${getCommentsObj[0].creation_date} - ${getCommentsObj[0].comment}`;
-      document.querySelector('.popup__subtitle').textContent = `There are ${countTwo + 1} comments`;
-      countTwo += 1;
-    };
-    updateComments(getLocalString);
-  }
-
   let i = 0;
   const body = document.querySelector('body');
   const popup = document.createElement('div');
@@ -118,39 +120,36 @@ const popup = (id) => {
   };
   popupInfo();
 
-  let count = 0;
   const updateComments = async (id, name, message) => {
-    const getListDOM = document.getElementById('popupSubTitle').childElementCount;
-    const createId = await catchComments(id, name, message, count);
-    const comments = await createComments(createId, name, message);
-    const getCommentsObj = await getComments(createId, name, message);
-    const getDataStrcut = getCommentsObj[0];
-    const getName = getDataStrcut.username;
-    const getDate = getDataStrcut.creation_date;
-    const getComment = getDataStrcut.comment;
-    console.log('getDataStrcut', getDataStrcut);
+    let getValue;
+    showsLocalStorage.forEach((elem) => {
+      const checkVal = Object.keys(elem)[0];
+      if (checkVal === id) {
+        getValue = Object.values(elem);
+      }
+    });
 
-    if (getDataStrcut) {
+    await createComments(getValue, name, message);
+    const getCommentsObj = await getComments(getValue, name, message);
+    const iCn = getCommentsObj.length - 1;
+    const getName = getCommentsObj[iCn].username;
+    const getDate = getCommentsObj[iCn].creation_date;
+    const getComment = getCommentsObj[iCn].comment;
+
+    if (getCommentsObj) {
       const commentLi = document.createElement('li');
       commentLi.classList.add('comment');
-      commentLi.setAttribute('id', `comment${count}`);
+      commentLi.setAttribute('id', `comment${iCn}`);
       document.querySelector('.popup__comment-ul').appendChild(commentLi);
-      console.log('count', count);
-      document.getElementById(`comment${count}`).innerHTML = `${getDate} - ${getName} - ${getComment}`;
-      document.querySelector('.popup__subtitle').textContent = `There are ${count + 1} comments`;
-      count += 1;
+      document.getElementById(`comment${iCn}`).innerHTML = `${getDate} - ${getName} - ${getComment}`;
+      document.querySelector('.popup__subtitle').textContent = `There are ${iCn + 1} comments`;
     } else {
       document.querySelector('.popup__subtitle').textContent = `There are ${0} comments`;
     }
   };
 
-  // updateComments(id);
-
   popupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // const store = [];
-    // store.push(document.getElementsByClassName('popup__name-form')[0].value);
-    // store.push(document.getElementsByClassName('popup__comment-form')[0].value);
     updateComments(id, popupNameForm.value, popupMessageForm.value);
     popupNameForm.value = '';
     popupMessageForm.value = '';
@@ -169,8 +168,40 @@ const popup = (id) => {
   });
 };
 
+const UpdatePopUp = (id) => {
+  let count = 0;
+  let getValue;
+  showsLocalStorage.forEach((elem) => {
+    const checkVal = Object.keys(elem)[0];
+    if (checkVal === id) {
+      getValue = Object.values(elem);
+    }
+  });
+  const getComms = async () => {
+    const getCommentsObj = await getComments(getValue);
+    getCommentsObj.forEach((elem) => {
+      const getName = elem.username;
+      const getDate = elem.creation_date;
+      const getComment = elem.comment;
+
+      if (elem) {
+        const commentLi = document.createElement('li');
+        commentLi.classList.add('comment');
+        commentLi.setAttribute('id', `comment${count}`);
+        document.querySelector('.popup__comment-ul').appendChild(commentLi);
+        document.getElementById(`comment${count}`).innerHTML = `${getDate} - ${getName} - ${getComment}`;
+        document.querySelector('.popup__subtitle').textContent = `There are ${count + 1} comments`;
+        count += 1;
+      } else {
+        document.querySelector('.popup__subtitle').textContent = `There are ${0} comments`;
+      }
+    });
+  };
+  getComms();
+};
+
 window.addEventListener('load', () => {
 
 });
 
-export default popup;
+export { popup, UpdatePopUp };
